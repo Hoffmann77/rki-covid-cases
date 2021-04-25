@@ -1,2 +1,2 @@
 # rki-covid-cases
-A python module to work with the German RKICovid19.csv files
+A python module to work with the German RKI_Covid19.csv files
