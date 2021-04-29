@@ -22,3 +22,12 @@ covid_cases.save_toFile('desired/path')
 #load file.
 covid_cases.load_fromFile('path/to/saved/file')
 ```
+#### Get the covid19 data:
+Until now the following methods are supported:
+
+| method | description |
+| --- | --- |
+| ```kumFälle(date, region_id, date_type)``` | cumulated covid19 cases |
+| ```kumTodesfälle(date, region_id, date_type)``` | cumulated covid19 deaths |
+| ```neueFälle(date, region_id, date_type)``` | new covid19 cases |
+| ```neueTodesfälle(date, region_id, date_type)``` | new covid19 cases |
