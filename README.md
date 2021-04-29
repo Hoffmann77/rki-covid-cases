@@ -38,9 +38,9 @@ A description of the parameters can be found below.
 | parameter | input type | description | example |
 | --- | :---: | --- | --- |
 | `date` | str | The desired date in the iso format | '2020-06-01 00:00:00' |
-| `region_id` | str | The region id of the desired region. [A list can be found here]() | '0' |
-| `date_type` | str | The date type to use. | 'Meldedatum' |
-| `timespan` | int | The timespan back from the date to be used in the calculation | 3 |
+| `region_id` | str | The region_id of the desired region. [A list can be found here]() | '0' |
+| `date_type` | str | The date type to use. Meldedatum or Refdatum | 'Meldedatum' |
+| `timespan` | int | Number of last days to be included in calculation. | 3 |
 #### Filter class:
 Each of the methods mentioned above returns an objct of the class Filter. You can use the following methods to get the data into your desired shape.
 | method | description | returns
