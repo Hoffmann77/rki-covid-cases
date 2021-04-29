@@ -11,6 +11,7 @@ Initialize the parser and load data from the RKI_Covid19.csv file.   Because of 
 import rki_covid19csv_parser
   
 covid_cases = rki_covid19csv_parser.covid_cases()
+
 covid_cases.load_rki_csv('path/to/csv')
 ```
 ### Speeding up the loading process:
