@@ -51,7 +51,7 @@ A description of the parameters can be found below.
 | `timespan` | int | Number of last days to be included in calculation. | 3 |
 
 #### Filter class:
-Each of the methods mentioned above returns an objct of the class Filter. You can use the following methods to get the data into your desired shape.
+Each of the methods mentioned above returns an objct of the class Filter.  You can use the following methods to get the data into your desired shape.
 
 | method | description | returns
 | --- | --- | --- |
