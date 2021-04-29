@@ -50,7 +50,7 @@ A description of the parameters can be found below.
 | `date_type` | str | The date type to use. Meldedatum or Refdatum | 'Meldedatum' |
 | `timespan` | int | Number of last days to be included in calculation. | 3 |
 
-#### Filter class:
+### Get your covid19 data in shape:
 Each of the methods mentioned above returns an objct of the class Filter. You can use the following methods to get the data into your desired shape.
 
 | method | description | returns
