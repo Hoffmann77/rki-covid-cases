@@ -41,12 +41,22 @@ A description of the parameters can be found below.
 | region_id | str | The region id of the desired region. [A list can be found here]() | '0' |
 | date_type | str | The date type to use. | 'Meldedatum' |
 | timespan | int | The timespan back from the date to be used in the calculation | 3 |
+#### Filter class:
+Each of the methods from above returns an objct of the class Filter. You can use the following methods to get the data into your desired shape.
+| method | description | returns
+| --- | --- | --- |
+| ```by_cases()``` | absolute number of cases | dict |
+| ```by_age(frequency, decimals)``` | cases sorted into agegroups | dict |
+| ```by_gender(frequency, decimals)``` | cases sorted by gender | dict |
+| ```by_ageandgener(frequency, decimals)``` | cases sorted by age and gender | dict |
 
-##### Examples:
-```
-#cumulated covid19 cases for the 01.05.2020 in whole Germany:
+| parameter | input type | description | example |
+| --- | :---: | --- | --- |
+| frequency | str | weather you want the absolute or relative number of cases | 'absolute' |
+| decimals | int | number of decimals | 3 |
 
-covid_cases.kumFälle(date='2020-05-01 00:00:00', region_id=0, date_type='Meldedatum').by_cases()
-```
+
+#### Examples:
+coming soon...
 
 
