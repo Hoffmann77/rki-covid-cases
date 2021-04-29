@@ -11,6 +11,7 @@ Initialize the parser and load data from the RKI_Covid19.csv file.   Because of 
 import rki_covid19csv_parser
   
 covid_cases = rki_covid19csv_parser.covid_cases()
+covid_cases.load_rki_csv('path/to/csv')
 ```
 ### Speeding up the loading process:
 Once you have loaded the csv file it's possible to save the processed data to a file on your disk.
@@ -25,14 +26,14 @@ covid_cases.load_fromFile('path/to/saved/file')
 ### Get the covid19 data:
 #### Supported methods:
 A description of the parameters can be found below. 
-| method | description |
-| --- | --- |
-| ```kumFälle(date, region_id, date_type)``` | cumulated covid19 cases |
-| ```kumTodesfälle(date, region_id, date_type)``` | cumulated covid19 deaths |
-| ```neueFälle(date, region_id, date_type)``` | new covid19 cases |
-| ```neueTodesfälle(date, region_id, date_type)``` | new covid19 deaths |
-| ```neueFälleZeitraum(date, region_id, date_type, timespan)``` | new covid19 cases in period |
-| ```neueTodesfälleZeitraum(date, region_id, date_type, timespan)``` | new covid19 deaths in period |
+| method | description | returns
+| --- | --- | --- |
+| ```kumFälle(date, region_id, date_type)``` | cumulated covid19 cases | Filter object |
+| ```kumTodesfälle(date, region_id, date_type)``` | cumulated covid19 deaths | Filter object |
+| ```neueFälle(date, region_id, date_type)``` | new covid19 cases | Filter object |
+| ```neueTodesfälle(date, region_id, date_type)``` | new covid19 deaths | Filter object |
+| ```neueFälleZeitraum(date, region_id, date_type, timespan)``` | new covid19 cases in period | Filter object |
+| ```neueTodesfälleZeitraum(date, region_id, date_type, timespan)``` | new covid19 deaths in period | Filter object |
 #### Parameters:
 | parameter | input type | description | example |
 | --- | :---: | --- | --- |
