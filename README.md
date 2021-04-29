@@ -58,6 +58,10 @@ Each of the methods mentioned above returns an objct of the class Filter. You ca
 
 
 #### Examples:
-coming soon...
+```
+cases = covid_cases.kumFälle(date='2021-04-29 00:00:00', region_id='01001', date_type='Meldedatum').by_gender(frequency='absolute')
+print(cases)
+>>> {'M': 1200, 'W': 1400, 'unbekannt': 130}
+```
 
 
