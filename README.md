@@ -30,7 +30,9 @@ A description of the parameters can be found below.
 | ```kumFälle(date, region_id, date_type)``` | cumulated covid19 cases |
 | ```kumTodesfälle(date, region_id, date_type)``` | cumulated covid19 deaths |
 | ```neueFälle(date, region_id, date_type)``` | new covid19 cases |
-| ```neueTodesfälle(date, region_id, date_type)``` | new covid19 cases |
+| ```neueTodesfälle(date, region_id, date_type)``` | new covid19 deaths |
+| ```neueFälleZeitraum(date, region_id, date_type, timespan)``` | new covid19 cases in period |
+| ```neueTodesfälleZeitraum(date, region_id, date_type, timespan)``` | new covid19 deaths in period |
 #### Parameters:
 | parameter | input type | description | example |
 | --- | :---: | --- | --- |
