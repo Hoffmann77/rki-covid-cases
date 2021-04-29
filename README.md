@@ -46,7 +46,7 @@ A description of the parameters can be found below.
 | parameter | input type | description | example |
 | --- | :---: | --- | --- |
 | `date` | str | The desired date in the iso format | '2020-06-01 00:00:00' |
-| `region_id` | str | The region_id of the desired region. [A list can be found here](REGION_ID.md) | '0' |
+| `region_id` | str | The region_id of the desired region. [A list can be found here](https://github.com/Hoffmann77/rki-covid19csv-parser/blob/main/REGION_ID.md) | '0' |
 | `date_type` | str | The date type to use. Meldedatum or Refdatum | 'Meldedatum' |
 | `timespan` | int | Number of last days to be included in calculation. | 3 |
 
