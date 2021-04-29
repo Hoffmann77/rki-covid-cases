@@ -28,32 +28,32 @@ covid_cases.load_fromFile('path/to/saved/file')
 A description of the parameters can be found below. 
 | method | description | returns
 | --- | --- | --- |
-| ```kumFälle(date, region_id, date_type)``` | cumulated covid19 cases | Filter object |
-| ```kumTodesfälle(date, region_id, date_type)``` | cumulated covid19 deaths | Filter object |
-| ```neueFälle(date, region_id, date_type)``` | new covid19 cases | Filter object |
-| ```neueTodesfälle(date, region_id, date_type)``` | new covid19 deaths | Filter object |
-| ```neueFälleZeitraum(date, region_id, date_type, timespan)``` | new covid19 cases in period | Filter object |
-| ```neueTodesfälleZeitraum(date, region_id, date_type, timespan)``` | new covid19 deaths in period | Filter object |
+| `kumFälle(date, region_id, date_type)` | cumulated covid19 cases | Filter object |
+| `kumTodesfälle(date, region_id, date_type)` | cumulated covid19 deaths | Filter object |
+| `neueFälle(date, region_id, date_type)` | new covid19 cases | Filter object |
+| `neueTodesfälle(date, region_id, date_type)` | new covid19 deaths | Filter object |
+| `neueFälleZeitraum(date, region_id, date_type, timespan)` | new covid19 cases in period | Filter object |
+| `neueTodesfälleZeitraum(date, region_id, date_type, timespan)` | new covid19 deaths in period | Filter object |
 #### Parameters:
 | parameter | input type | description | example |
 | --- | :---: | --- | --- |
-| date | str | The desired date in the iso format | '2020-06-01 00:00:00' |
-| region_id | str | The region id of the desired region. [A list can be found here]() | '0' |
-| date_type | str | The date type to use. | 'Meldedatum' |
-| timespan | int | The timespan back from the date to be used in the calculation | 3 |
+| `date` | str | The desired date in the iso format | '2020-06-01 00:00:00' |
+| `region_id` | str | The region id of the desired region. [A list can be found here]() | '0' |
+| `date_type` | str | The date type to use. | 'Meldedatum' |
+| `timespan` | int | The timespan back from the date to be used in the calculation | 3 |
 #### Filter class:
 Each of the methods mentioned above returns an objct of the class Filter. You can use the following methods to get the data into your desired shape.
 | method | description | returns
 | --- | --- | --- |
-| ```by_cases()``` | absolute number of cases | dict |
-| ```by_age(frequency, decimals)``` | cases sorted into agegroups | dict |
-| ```by_gender(frequency, decimals)``` | cases sorted by gender | dict |
-| ```by_ageandgener(frequency, decimals)``` | cases sorted by age and gender | dict |
+| `by_cases()` | absolute number of cases | dict |
+| `by_age(frequency, decimals)` | cases sorted into agegroups | dict |
+| `by_gender(frequency, decimals)` | cases sorted by gender | dict |
+| `by_ageandgener(frequency, decimals)` | cases sorted by age and gender | dict |
 
 | parameter | input type | description | example |
 | --- | :---: | --- | --- |
-| frequency | str | weather you want the absolute or relative number of cases | 'absolute' |
-| decimals | int | number of decimals | 3 |
+| `frequency` | str | weather you want the absolute or relative number of cases | 'absolute' |
+| `decimals` | int | number of decimals | 3 |
 
 
 #### Examples:
