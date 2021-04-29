@@ -1,6 +1,6 @@
 # Region ids:
 
-### Germany:
+### Country:
 | region_id | country |
 | :---: | --- |
 | 0 | Germany |
