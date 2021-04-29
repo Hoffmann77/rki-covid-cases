@@ -35,7 +35,7 @@ A description of the parameters can be found below.
 | parameter | input type | description | example |
 | --- | :---: | --- | --- |
 | date | str | The desired date in the iso format | '2020-06-01 00:00:00' |
-| region_id | str | The region id for the desired region. '0' for whole Germany, '1-16' for the desired state, '1001-16000' for the desired district. | '0' |
+| region_id | str | The region id of the desired region. A list can be found further below. | '0' |
 | date_type | str | The date type to use.  | 'Meldedatum' |
 | timespan | int | The timespan back from the date to be used in the calculation | 3 |
 
