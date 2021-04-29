@@ -12,3 +12,5 @@ import rki_covid19csv_parser
 covid_cases = rki_covid19csv_parser.covid_cases()
 covid_cases.load_rki_csv('path/to/your/csv')
 ```
+Because of the daily increasing file size of the RKI_Covid19.csv the process of loadingthe file can take some time.
+
