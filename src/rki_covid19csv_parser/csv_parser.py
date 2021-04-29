@@ -158,7 +158,7 @@ class Filter:
     
     
 
-class rki_csv_parser:
+class covid_cases:
     def __init__(self):
         """Constructor for the object.
         
