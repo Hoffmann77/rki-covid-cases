@@ -14,8 +14,8 @@ covid_cases = rki_covid19csv_parser.covid_cases()
 covid_cases.load_rki_csv('path/to/csv')
 ```
 ### Speeding up the loading process:
-Once you have loaded the csv file it's possible to save the processed data to a file on your disk.
-This can significantly speed up the process of loading the data if you whish to run your script more than once.
+Once you have loaded the csv file it's possible to save the processed data to a file.
+This can speed up the process of loading the data significantly if you whish to run your script more than once.
 ```
 #save file.
 covid_cases.save_toFile('desired/path')
