@@ -42,7 +42,7 @@ A description of the parameters can be found below.
 | date_type | str | The date type to use. | 'Meldedatum' |
 | timespan | int | The timespan back from the date to be used in the calculation | 3 |
 #### Filter class:
-Each of the methods from above returns an objct of the class Filter. You can use the following methods to get the data into your desired shape.
+Each of the methods mentioned above returns an objct of the class Filter. You can use the following methods to get the data into your desired shape.
 | method | description | returns
 | --- | --- | --- |
 | ```by_cases()``` | absolute number of cases | dict |
