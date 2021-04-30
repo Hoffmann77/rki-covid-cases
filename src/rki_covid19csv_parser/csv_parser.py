@@ -219,7 +219,7 @@ class covid_cases:
             if (int(row[12]) in (0,1)):
                 covid_cases  [lk_index]  [refdatum_index]  [_CASE_TYPES['Todesfall']]  [_DATE_TYPES['Refdatum']]  [agegroups_index]  [genders_index] += int(row[7])
     
-        self.data_actuality = data_status()
+        self.data_actuality = data_status
         csv_file.close()
         self._loaded_rki_cases = covid_cases
         
