@@ -235,7 +235,8 @@ class covid_cases:
         -------
         None.
         """
-        path = 'RKI_Covid19_Cases_{}'.format(self.data_actuality)
+        if(path==''):
+            path = 'RKI_Covid19_Cases_{}'.format(self.data_actuality)
         np.save(path ,self._loaded_rki_cases)
         
         
@@ -521,13 +522,12 @@ def _load_lk_ids():
         Dictionary containing Landkreise and indicies.
     """
     lk_ids = {}
-    #lk_names = {}
-    csv_file = open("data/Landkreis_id.csv", mode='r', encoding='UTF-8')
+    path = os.path.join(os.path.dirname(__file__), 'data/Landkreis_id.csv')
+    csv_file = open(path, mode='r', encoding='UTF-8')
     csv_reader = csv.reader(csv_file, delimiter=',', quotechar='"')
     next(csv_reader)
     for index,row in enumerate(csv_reader):
         lk_ids[row[0].zfill(5)] = index
-        #lk_names[row[0].zfill(5)] = row[1]
     csv_file.close()
     return lk_ids
     
