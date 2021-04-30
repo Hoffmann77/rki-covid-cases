@@ -7,7 +7,8 @@ Created on Thu Apr  8 20:25:55 2021
 
 
 #Import required modules
-import csv                            
+import csv
+import os
 import numpy as np
 import datetime
 import dateutil.parser as parser
