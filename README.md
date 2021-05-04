@@ -40,6 +40,10 @@ A description of the parameters can be found below.
 | `neueTodesfälle(date, region_id, date_type)` | new covid19 deaths | Filter object |
 | `neueFälleZeitraum(date, region_id, date_type, timespan)` | new covid19 cases in period | Filter object |
 | `neueTodesfälleZeitraum(date, region_id, date_type, timespan)` | new covid19 deaths in period | Filter object |
+| `aktiveFälle(date, region_id, date_type, days_infectious)` | active covid19 cases | Filter object |
+| `SiebenTageFallzahl(date, region_id, date_type)` | new covid19 cases in 7-days | Filter object |
+| `SiebenTageInzidenz(date, region_id, date_type)` | new covid19 cases per 100k people in 7-days | Filter object |
+
 
 #### Parameters:
 
@@ -49,6 +53,7 @@ A description of the parameters can be found below.
 | `region_id` | str | [A list of region-ids can be found here.](https://github.com/Hoffmann77/rki-covid19csv-parser/blob/main/REGION_ID.md) | '0' |
 | `date_type` | str | The date type to use. Meldedatum or Refdatum | 'Meldedatum' |
 | `timespan` | int | Number of last days to be included in calculation. | 3 |
+| `days_infectious` | int | Number of days case is considered as active. | 14 |
 
 ### Get your covid19 data in shape:
 Each of the methods mentioned above returns an objct of the class Filter. You can use the following methods to get the data into your desired shape.
