@@ -1,18 +1,18 @@
-AdmUnitId,Name,ObjectId
-0,Bundesrepublik Deutschland,1
-1,Schleswig-Holstein,2
-2,Hamburg,3
-3,Niedersachsen,4
-4,Bremen,5
-5,Nordrhein-Westfalen,6
-6,Hessen,7
-7,Rheinland-Pfalz,8
-8,Baden-Württemberg,9
-9,Bayern,10
-10,Saarland,11
-11,Berlin,12
-12,Brandenburg,13
-13,Mecklenburg-Vorpommern,14
-14,Sachsen,15
-15,Sachsen-Anhalt,16
-16,Thüringen,17
+AdmUnitId;Name;Einwohnerzahl;ObjectId
+00;Bundesrepublik Deutschland;83166711;1
+01;Schleswig-Holstein;2903773;2
+02;Hamburg;1847253;3
+03;Niedersachsen;7993608;4
+04;Bremen;681202;5
+05;Nordrhein-Westfalen;17947221;6
+06;Hessen;6288080;7
+07;Rheinland-Pfalz;4093903;8
+08;Baden-Württemberg;11100394;9
+09;Bayern;13124737;10
+10;Saarland;986887;11
+11;Berlin;3669491;12
+12;Brandenburg;2521893;13
+13;Mecklenburg-Vorpommern;1608138;14
+14;Sachsen;4071971;15
+15;Sachsen-Anhalt;2194782;16
+16;Thüringen;2133378;17
