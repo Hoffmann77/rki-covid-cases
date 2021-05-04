@@ -7,11 +7,11 @@ Created on Thu Apr  8 20:25:55 2021
 
 
 #Import required modules
-import csv
-import os
+import csv                            
 import numpy as np
 import datetime
 import dateutil.parser as parser
+import os
 
     
 
@@ -74,7 +74,7 @@ class Filter:
         if (frequency.lower() == 'absolute' or result_all == 0):
             return_data = {}
             for index, key in enumerate(_GENDERS.keys()):
-                return_data[self.case_description+'_'+key] = result[index]
+                return_data[self.case_description+'_'+key] = round(result[index],1)
             return return_data
         elif (frequency.lower() == 'relative' and result_all != 0):
             return_data = {}
@@ -103,7 +103,7 @@ class Filter:
         if (frequency.lower() == 'absolute' or result_all == 0):
             return_data = {}
             for index, key in enumerate(_AGE_GROUPS.keys()):
-                return_data[self.case_description+'_'+key] = result[index]
+                return_data[self.case_description+'_'+key] = round(result[index],1)
             return return_data
         elif (frequency.lower() == 'relative' and result_all != 0):
             return_data = {}
@@ -132,7 +132,7 @@ class Filter:
         for age_index,age in enumerate(_AGE_GROUPS.keys()):
             for gender_index,gender in enumerate(_GENDERS.keys()):
                 if (frequency.lower() == 'absolute' or result_all == 0):
-                    return_data[self.case_description+'_'+age+'_'+gender] = self.cases[age_index][gender_index]
+                    return_data[self.case_description+'_'+age+'_'+gender] = round(self.cases[age_index][gender_index],1)
                 elif (frequency.lower() == 'relative' and result_all != 0):
                     return_data[self.case_description+'_'+age+'_'+gender] = round(self.cases[age_index][gender_index]/result_all,decimals)
         return return_data
@@ -154,7 +154,7 @@ class Filter:
             a dictionary with the absolute number of cases.
         """
         return_data = {}
-        return_data[self.case_description] = self.cases.sum(axis=0).sum(axis=0)
+        return_data[self.case_description] = round(self.cases.sum(axis=0).sum(axis=0),1)
         return return_data
     
     
@@ -349,7 +349,7 @@ class covid_cases:
         Object of class Case : Case object
             Returns an object of the class Case.
         """
-        covid_cases = self.loaded_rki_cases
+        covid_cases = self._loaded_rki_cases
         dates = _load_dates()
         datetype_index = _DATE_TYPES[date_type]
         
@@ -387,7 +387,7 @@ class covid_cases:
         Object of class Case : Case object
             Returns an object of the class Case.
         """
-        covid_cases = self.loaded_rki_cases
+        covid_cases = self._loaded_rki_cases
         dates = _load_dates()
         datetype_index = _DATE_TYPES[date_type]
         
@@ -427,7 +427,7 @@ class covid_cases:
         Object of class Case : Case object
             Returns an object of the class Case.
         """
-        covid_cases = self.loaded_rki_cases
+        covid_cases = self._loaded_rki_cases
         dates = _load_dates()
         datetype_index = _DATE_TYPES[date_type]
         
@@ -469,7 +469,7 @@ class covid_cases:
         Object of class Case : Case object
             Returns an object of the class Case.
         """
-        covid_cases = self.loaded_rki_cases
+        covid_cases = self._loaded_rki_cases
         dates = _load_dates()
         datetype_index = _DATE_TYPES[date_type]
         
@@ -492,7 +492,132 @@ class covid_cases:
         return Filter(result, 'neueTodesfälle_{}Tage_{}'.format(timespan,date_type))        
 
 
- 
+    def aktiveFälle(self, date='2021-01-01 00:00:00', region_id='0', date_type='Meldedatum', days_infectious=14):
+        """Return the active Covid19 cases for the given day and region.
+        
+        Parameters
+        ----------
+        date : str, optional
+            The date. The default is '2021-01-01 00:00:00'.
+        region_id : str, optional
+            Region. The default is '0'.
+        date_type : str, optional
+            The type of date. The default is 'Meldedatum'.
+        days_infectious : int
+            The number of days an case is active after the transmission of the infection.
+            
+        Returns
+        -------
+        Object of class Case : Case object
+            Returns an object of the class Case.
+        """
+        covid_cases = self._loaded_rki_cases
+        dates = _load_dates()
+        datetype_index = _DATE_TYPES[date_type]
+        
+        start_date = parser.isoparse(date)-datetime.timedelta(days=days_infectious)
+        
+        if (int(region_id) == 0):
+            result = covid_cases[0:,dates[str(start_date)]:dates[date],0,datetype_index].sum(axis=0).sum(axis=0)
+            
+        elif (int(region_id) >= 1 and int(region_id) <= 16):
+            lk_ids = _load_lk_ids()
+            result = np.zeros((7,3),dtype=int)
+            for value,index in list(lk_ids.items()):
+                if (value[0:2]==region_id.zfill(2)):
+                    result = np.add(result,covid_cases[index,dates[str(start_date)]:dates[date],0,datetype_index].sum(axis=0))
+                    
+        elif (int(region_id) > 1000):
+            lk_id = _load_lk_ids()[region_id.zfill(5)]
+            result = covid_cases[lk_id,dates[str(start_date)]:dates[date],0,datetype_index].sum(axis=0)
+            
+        return Filter(result, 'aktiveFälle_{}'.format(date_type))
+      
+        
+    def SiebenTageFallzahl(self, date='2021-01-01 00:00:00', region_id='0', date_type='Meldedatum'):
+        """Return the new Covid19 cases for the last 7 days from the given date.
+        
+        Parameters
+        ----------
+        date : str, optional
+            The date. The default is '2021-01-01 00:00:00'.
+        region_id : str, optional
+            Region. The default is '0'.
+        date_type : str, optional
+            The type of date. The default is 'Meldedatum'.
+            
+        Returns
+        -------
+        Object of class Case : Case object
+            Returns an object of the class Case.
+        """
+        covid_cases = self._loaded_rki_cases
+        dates = _load_dates()
+        datetype_index = _DATE_TYPES[date_type]
+        
+        start_date = parser.isoparse(date)-datetime.timedelta(days=7)
+        
+        if (int(region_id) == 0):
+            result = covid_cases[0:,dates[str(start_date)]:dates[date],0,datetype_index].sum(axis=0).sum(axis=0)
+            
+        elif (int(region_id) >= 1 and int(region_id) <= 16):
+            lk_ids = _load_lk_ids()
+            result = np.zeros((7,3),dtype=int)
+            for value,index in list(lk_ids.items()):
+                if (value[0:2]==region_id.zfill(2)):
+                    result = np.add(result,covid_cases[index,dates[str(start_date)]:dates[date],0,datetype_index].sum(axis=0))
+                    
+        elif (int(region_id) > 1000):
+            lk_id = _load_lk_ids()[region_id.zfill(5)]
+            result = covid_cases[lk_id,dates[str(start_date)]:dates[date],0,datetype_index].sum(axis=0)
+            
+        return Filter(result, '7-TageFallzahl_{}'.format(date_type)) 
+    
+    
+    def SiebenTageInzidenz(self, date='2021-01-01 00:00:00', region_id='0', date_type='Meldedatum'):
+        """Return the Covid19 cases per 100 000 residents for the last 7 days from the given date.
+        
+        Parameters
+        ----------
+        date : str, optional
+            The date. The default is '2021-01-01 00:00:00'.
+        region_id : str, optional
+            Region. The default is '0'.
+        date_type : str, optional
+            The type of date. The default is 'Meldedatum'.
+            
+        Returns
+        -------
+        Object of class Case : Case object
+            Returns an object of the class Case.
+        """
+        covid_cases = self._loaded_rki_cases
+        dates = _load_dates()
+        datetype_index = _DATE_TYPES[date_type]
+        dividor = _get_population(region_id)*(1/100000)
+        
+        start_date = parser.isoparse(date)-datetime.timedelta(days=7)
+        
+        if (int(region_id) == 0):
+            result = covid_cases[0:,dates[str(start_date)]:dates[date],0,datetype_index].sum(axis=0).sum(axis=0)
+            result = np.divide(result,dividor)
+            
+        elif (int(region_id) >= 1 and int(region_id) <= 16):
+            lk_ids = _load_lk_ids()
+            result = np.zeros((7,3),dtype=int)
+            for value,index in list(lk_ids.items()):
+                if (value[0:2]==region_id.zfill(2)):
+                    result = np.add(result,covid_cases[index,dates[str(start_date)]:dates[date],0,datetype_index].sum(axis=0))
+                    result = np.divide(result,dividor)
+                    
+        elif (int(region_id) > 1000):
+            lk_id = _load_lk_ids()[region_id.zfill(5)]
+            result = covid_cases[lk_id,dates[str(start_date)]:dates[date],0,datetype_index].sum(axis=0)
+            result = np.divide(result,dividor)
+            
+        return Filter(result, '7-TageInzidenz_{}'.format(date_type))
+
+    
 #internal function to create dates dict   
 def _load_dates():
     """Return a dict with the dates from the start_date to the current date.
@@ -523,12 +648,42 @@ def _load_lk_ids():
         Dictionary containing Landkreise and indicies.
     """
     lk_ids = {}
+    #lk_names = {}
     path = os.path.join(os.path.dirname(__file__), 'data/Landkreis_id.csv')
     csv_file = open(path, mode='r', encoding='UTF-8')
     csv_reader = csv.reader(csv_file, delimiter=',', quotechar='"')
     next(csv_reader)
     for index,row in enumerate(csv_reader):
         lk_ids[row[0].zfill(5)] = index
+        #lk_names[row[0].zfill(5)] = row[1]
     csv_file.close()
     return lk_ids
+
+
+#internal function to get population
+def _get_population(region_id):
+    """Return the population for a given region.
     
+    Returns
+    -------
+    population : int
+        population for the given region_id.
+    """
+    if (int(region_id) >= 0 and int(region_id) <= 16):
+        path = os.path.join(os.path.dirname(__file__), 'data/Bundesland_id.csv')
+        csv_file = open(path, mode='r', encoding='UTF-8')
+        csv_reader = csv.reader(csv_file, delimiter=',', quotechar='"')
+        next(csv_reader)
+        for index,row in enumerate(csv_reader):
+            if (row[0] == region_id.zfill(2)):
+                return int(row[2])
+                        
+    elif (int(region_id) > 1000):
+        path = os.path.join(os.path.dirname(__file__), 'data/Landkreis_id.csv')
+        csv_file = open(path, mode='r', encoding='UTF-8')
+        csv_reader = csv.reader(csv_file, delimiter=',', quotechar='"')
+        next(csv_reader)
+        for index,row in enumerate(csv_reader):
+            if (row[0] == region_id.zfill(5)):
+                return int(row[2])
+    return 0    
