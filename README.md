@@ -53,7 +53,7 @@ A description of the parameters can be found below.
 | `region_id` | str | [A list of region-ids can be found here.](https://github.com/Hoffmann77/rki-covid19csv-parser/blob/main/REGION_ID.md) | '0' |
 | `date_type` | str | The date type to use. Meldedatum or Refdatum | 'Meldedatum' |
 | `timespan` | int | Number of last days to be included in calculation. | 3 |
-| `days_infectious` | int | Number of days case is considered as active. | 14 |
+| `days_infectious` | int | Number of days a case is considered as active. | 14 |
 
 ### Get your covid19 data in shape:
 Each of the methods mentioned above returns an objct of the class Filter. You can use the following methods to get the data into your desired shape.
