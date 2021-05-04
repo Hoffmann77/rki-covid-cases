@@ -1,0 +1,8 @@
+SOURCES for the following files: Bundesland_id.csv, Landkreis_id.csv:
+
+RKI AdmUnit, https://npgeo-corona-npgeo-de.hub.arcgis.com/datasets/58dba7034918475cb8aaf8ad38f7e77a_0
+RKI Corona Landkreise, https://npgeo-corona-npgeo-de.hub.arcgis.com/datasets/917fc37a709542548cc3be077a786c17_0?geometry=-30.805%2C46.211%2C52.823%2C55.839
+RKI Corona Bundesländer, https://npgeo-corona-npgeo-de.hub.arcgis.com/datasets/ef4b445a53c1406892257fe63129a8ea_0?geometry=-33.686%2C46.270%2C49.942%2C55.886
+
+Robert Koch-Institut (RKI), dl-de/by-2-0
+http://www.govdata.de/dl-de/by-2-0
