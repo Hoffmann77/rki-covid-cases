@@ -53,7 +53,15 @@ class Filter:
         """
         return str(self.cases)
         
-    
+    def values(self):
+        """Return raw ndarray.
+        
+        Returns
+        -------
+        cases : ndarray
+            Returns the object's cases as an ndarray.
+        return self.cases    
+        
     def by_gender(self,frequency:str='absolute',decimals:int=3):
         """Converts the Cases to a representation by gender.
         
@@ -263,28 +271,27 @@ class covid_cases:
         self._loaded_rki_cases = np.load(path)
     
         
-    def kumFälle(self, date, region_id='0', date_type='Meldedatum'):
+    def cumCases(self, date, region_id='0', date_type='Meldedatum'):
         """Return the cumulated Covid19 cases for the given day and region.
         
         Parameters
         ----------
-        date : iso formatted str, datetime.date obj, datetime.datetime obj
+        date : str in iso format, datetime.date obj, datetime.datetime obj
             The desired date.
         region_id : str, optional
             ID of the desired Region. The default is '0'.
         date_type : str, optional
             The type of date. The default is 'Meldedatum'.
-    
+        
         Returns
         -------
-        Object of class Case : Case object
-            Returns an object of the class Case.
+        Object of class Filter : Filter object
+            Returns an object of the class Filter.
         """
         if(type(date)==datetime.date):
             date = str(datetime.combine(date, datetime.time()))   
         elif(type(date)==datetime.datetime): 
-            date = str(date)
-            
+            date = str(date)    
         covid_cases = self._loaded_rki_cases
         dates = _load_dates()
         datetype_index = _DATE_TYPES[date_type]
@@ -302,27 +309,31 @@ class covid_cases:
         elif (int(region_id) > 1000):
             lk_id = _load_lk_ids()[region_id.zfill(5)]
             result = covid_cases[lk_id,0:dates[date]+1,0,datetype_index].sum(axis=0)
-            
+        
         return Filter(result, 'kumFälle_{}'.format(date_type))
     
     
-    def kumTodesfälle(self, date, region_id='0', date_type='Meldedatum'):
+    def cumDeaths(self, date, region_id='0', date_type='Meldedatum'):
         """Return the cumulated Covid19 deaths for the given day and region.
         
         Parameters
         ----------
-        date : str, optional
-            The date. The default is '2021-01-01 00:00:00'.
+        date : str in iso format, datetime.date obj, datetime.datetime obj
+            The desired date.
         region_id : str, optional
-            Region. The default is '0'.
+            ID of the desired Region. The default is '0'.
         date_type : str, optional
             The type of date. The default is 'Meldedatum'.
-    
+        
         Returns
         -------
-        Object of class Case : Case object
-            Returns an object of the class Case.
+        Object of class Filter : Filter object
+            Returns an object of the class Filter.
         """
+        if(type(date)==datetime.date):
+            date = str(datetime.combine(date, datetime.time()))   
+        elif(type(date)==datetime.datetime): 
+            date = str(date)
         covid_cases = self._loaded_rki_cases
         dates = _load_dates()
         datetype_index = _DATE_TYPES[date_type]
@@ -340,27 +351,31 @@ class covid_cases:
         elif (int(region_id) > 1000):
             lk_id = _load_lk_ids()[region_id.zfill(5)]
             result = covid_cases[lk_id,0:dates[date]+1,1,datetype_index].sum(axis=0)
-            
+        
         return Filter(result, 'kumTodesfälle_{}'.format(date_type))
 
 
-    def neueFälle(self, date, region_id='0', date_type='Meldedatum'):
+    def newCases(self, date, region_id='0', date_type='Meldedatum'):
         """Return the new Covid19 cases for the given day and region.
         
         Parameters
         ----------
-        date : str, optional
-            The date. The default is '2021-01-01 00:00:00'.
+        date : str in iso format, datetime.date obj, datetime.datetime obj
+            The desired date.
         region_id : str, optional
-            Region. The default is '0'.
+            ID of the desired Region. The default is '0'.
         date_type : str, optional
             The type of date. The default is 'Meldedatum'.
-    
+        
         Returns
         -------
-        Object of class Case : Case object
-            Returns an object of the class Case.
+        Object of class Filter : Filter object
+            Returns an object of the class Filter.
         """
+        if(type(date)==datetime.date):
+            date = str(datetime.combine(date, datetime.time()))   
+        elif(type(date)==datetime.datetime): 
+            date = str(date)
         covid_cases = self._loaded_rki_cases
         dates = _load_dates()
         datetype_index = _DATE_TYPES[date_type]
@@ -378,27 +393,31 @@ class covid_cases:
         elif (int(region_id) > 1000):
             lk_id = _load_lk_ids()[region_id.zfill(5)]
             result = covid_cases[lk_id,dates[date],0,datetype_index]
-            
+        
         return Filter(result, 'neueFälle_{}'.format(date_type)) 
 
     
-    def neueTodesfälle(self, date, region_id='0', date_type='Meldedatum'):
+    def newDeaths(self, date, region_id='0', date_type='Meldedatum'):
         """Return the new Covid19 desths for the given day and region.
         
         Parameters
         ----------
-        date : str, optional
-            The date. The default is '2021-01-01 00:00:00'.
+        date : str in iso format, datetime.date obj, datetime.datetime obj
+            The desired date.
         region_id : str, optional
-            Region. The default is '0'.
+            ID of the desired Region. The default is '0'.
         date_type : str, optional
             The type of date. The default is 'Meldedatum'.
     
         Returns
         -------
-        Object of class Case : Case object
-            Returns an object of the class Case.
+        Object of class Filter : Filter object
+            Returns an object of the class Filter.
         """
+        if(type(date)==datetime.date):
+            date = str(datetime.combine(date, datetime.time()))   
+        elif(type(date)==datetime.datetime): 
+            date = str(date)
         covid_cases = self._loaded_rki_cases
         dates = _load_dates()
         datetype_index = _DATE_TYPES[date_type]
@@ -416,19 +435,19 @@ class covid_cases:
         elif (int(region_id) > 1000):
             lk_id = _load_lk_ids()[region_id.zfill(5)]
             result = covid_cases[lk_id,dates[date],1,datetype_index]
-            
+        
         return Filter(result, 'neueTodesfälle_{}'.format(date_type))
 
 
-    def neueFälleZeitraum(self, date, region_id='0', date_type='Meldedatum', timespan=1):
+    def newCasesTimespan(self, date, region_id='0', date_type='Meldedatum', timespan=1):
         """Return the new Covid19 cases for the given day and region.
         
         Parameters
         ----------
-        date : str, optional
-            The date. The default is '2021-01-01 00:00:00'.
+        date : str in iso format, datetime.date obj, datetime.datetime obj
+            The desired date.
         region_id : str, optional
-            Region. The default is '0'.
+            ID of the desired Region. The default is '0'.
         date_type : str, optional
             The type of date. The default is 'Meldedatum'.
         timespan : int
@@ -436,8 +455,8 @@ class covid_cases:
             
         Returns
         -------
-        Object of class Case : Case object
-            Returns an object of the class Case.
+        Object of class Filter : Filter object
+            Returns an object of the class Filter.
         """
         covid_cases = self._loaded_rki_cases
         dates = _load_dates()
@@ -462,15 +481,15 @@ class covid_cases:
         return Filter(result, 'neueFälle_{}Tage_{}'.format(timespan,date_type))
 
 
-    def neueTodesfälleZeitraum(self, date, region_id='0', date_type='Meldedatum', timespan=1):
+    def newDeathsTimespan(self, date, region_id='0', date_type='Meldedatum', timespan=1):
         """Return the new Covid19 cases for the given day and region.
         
         Parameters
         ----------
-        date : str, optional
-            The date. The default is '2021-01-01 00:00:00'.
+        date : str in iso format, datetime.date obj, datetime.datetime obj
+            The desired date.
         region_id : str, optional
-            Region. The default is '0'.
+            ID of the desired Region. The default is '0'.
         date_type : str, optional
             The type of date. The default is 'Meldedatum'.
         timespan : int
@@ -478,8 +497,8 @@ class covid_cases:
             
         Returns
         -------
-        Object of class Case : Case object
-            Returns an object of the class Case.
+        Object of class Filter : Filter object
+            Returns an object of the class Filter.
         """
         covid_cases = self._loaded_rki_cases
         dates = _load_dates()
@@ -504,25 +523,29 @@ class covid_cases:
         return Filter(result, 'neueTodesfälle_{}Tage_{}'.format(timespan,date_type))        
 
 
-    def aktiveFälle(self, date, region_id='0', date_type='Meldedatum', days_infectious=14):
+    def activeCases(self, date, region_id='0', date_type='Meldedatum', days_infectious=14):
         """Return the active Covid19 cases for the given day and region.
         
         Parameters
         ----------
-        date : str, optional
-            The date. The default is '2021-01-01 00:00:00'.
+        date : str in iso format, datetime.date obj, datetime.datetime obj
+            The desired date.
         region_id : str, optional
-            Region. The default is '0'.
+            ID of the desired Region. The default is '0'.
         date_type : str, optional
             The type of date. The default is 'Meldedatum'.
         days_infectious : int
-            The number of days an case is active after the transmission of the infection.
+            The number of days an case is considered active after the transmission of the infection.
             
         Returns
         -------
-        Object of class Case : Case object
-            Returns an object of the class Case.
+        Object of class Filter : Filter object
+            Returns an object of the class Filter.
         """
+        if(type(date)==datetime.date):
+            date = str(datetime.combine(date, datetime.time()))   
+        elif(type(date)==datetime.datetime): 
+            date = str(date)
         covid_cases = self._loaded_rki_cases
         dates = _load_dates()
         datetype_index = _DATE_TYPES[date_type]
@@ -546,23 +569,27 @@ class covid_cases:
         return Filter(result, 'aktiveFälle_{}'.format(date_type))
       
         
-    def SiebenTageFallzahl(self, date, region_id='0', date_type='Meldedatum'):
+    def sevenDaysCaserate(self, date, region_id='0', date_type='Meldedatum'):
         """Return the new Covid19 cases for the last 7 days from the given date.
         
         Parameters
         ----------
-        date : str, optional
-            The date. The default is '2021-01-01 00:00:00'.
+        date : str in iso format, datetime.date obj, datetime.datetime obj
+            The desired date.
         region_id : str, optional
-            Region. The default is '0'.
+            ID of the desired Region. The default is '0'.
         date_type : str, optional
             The type of date. The default is 'Meldedatum'.
             
         Returns
         -------
-        Object of class Case : Case object
-            Returns an object of the class Case.
+        Object of class Filter : Filter object
+            Returns an object of the class Filter.
         """
+        if(type(date)==datetime.date):
+            date = str(datetime.combine(date, datetime.time()))   
+        elif(type(date)==datetime.datetime): 
+            date = str(date)
         covid_cases = self._loaded_rki_cases
         dates = _load_dates()
         datetype_index = _DATE_TYPES[date_type]
@@ -586,23 +613,27 @@ class covid_cases:
         return Filter(result, '7-TageFallzahl_{}'.format(date_type)) 
     
     
-    def SiebenTageInzidenz(self, date, region_id='0', date_type='Meldedatum'):
+    def sevenDaysIncidence(self, date, region_id='0', date_type='Meldedatum'):
         """Return the Covid19 cases per 100 000 residents for the last 7 days from the given date.
         
         Parameters
         ----------
-        date : str, optional
-            The date. The default is '2021-01-01 00:00:00'.
+        date : str in iso format, datetime.date obj, datetime.datetime obj
+            The desired date.
         region_id : str, optional
-            Region. The default is '0'.
+            ID of the desired Region. The default is '0'.
         date_type : str, optional
             The type of date. The default is 'Meldedatum'.
             
         Returns
         -------
-        Object of class Case : Case object
-            Returns an object of the class Case.
+        Object of class Filter : Filter object
+            Returns an object of the class Filter.
         """
+        if(type(date)==datetime.date):
+            date = str(datetime.combine(date, datetime.time()))   
+        elif(type(date)==datetime.datetime): 
+            date = str(date)
         covid_cases = self._loaded_rki_cases
         dates = _load_dates()
         datetype_index = _DATE_TYPES[date_type]
@@ -628,7 +659,29 @@ class covid_cases:
             result = np.divide(result,dividor)
             
         return Filter(result, '7-TageInzidenz_{}'.format(date_type))
-
+    
+    def deathRate(self, date, region_id='0', days_infectious=14):
+        """Return the death rate for the given date.
+        
+        Parameters
+        ----------
+        date : str in iso format, datetime.date obj, datetime.datetime obj
+            The desired date.
+        region_id : str, optional
+            ID of the desired Region. The default is '0'.
+        days_infectious : int
+            The number of days an case is considered active after the transmission of the infection.
+            
+        Returns
+        -------
+        Object of class Filter : Filter object
+            Returns an object of the class Filter.
+        """
+        active_cases = self.activeCases(date=date, region_id=region_id, date_type='Refdatum', days_infectious=days_infectious)
+        new_deaths = self.newDeaths(date=date, region_id=region_id, date_type='Meldedatum')
+        result = np.divide(new_deaths, active_cases, where=active_cases != 0)
+        return Filter(result, 'Todesrate')
+        
     
 #internal function to create dates dict   
 def _load_dates():
