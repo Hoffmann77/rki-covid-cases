@@ -569,7 +569,7 @@ class covid_cases:
         return Filter(result, 'aktiveFälle_{}'.format(date_type))
       
         
-    def sevenDaysCaserate(self, date, region_id='0', date_type='Meldedatum'):
+    def sevenDayCaserate(self, date, region_id='0', date_type='Meldedatum'):
         """Return the new Covid19 cases for the last 7 days from the given date.
         
         Parameters
@@ -613,7 +613,7 @@ class covid_cases:
         return Filter(result, '7-TageFallzahl_{}'.format(date_type)) 
     
     
-    def sevenDaysIncidence(self, date, region_id='0', date_type='Meldedatum'):
+    def sevenDayIncidence(self, date, region_id='0', date_type='Meldedatum'):
         """Return the Covid19 cases per 100 000 residents for the last 7 days from the given date.
         
         Parameters
