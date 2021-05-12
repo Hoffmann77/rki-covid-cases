@@ -60,6 +60,8 @@ class Filter:
         -------
         cases : ndarray
             Returns the object's cases as an ndarray.
+        
+        """
         return self.cases    
         
     def by_gender(self,frequency:str='absolute',decimals:int=3):
