@@ -291,7 +291,7 @@ class covid_cases:
             Returns an object of the class Filter.
         """
         if(type(date)==datetime.date):
-            date = str(datetime.combine(date, datetime.time()))   
+            date = str(datetime.datetime.combine(date, datetime.time()))   
         elif(type(date)==datetime.datetime): 
             date = str(date)    
         covid_cases = self._loaded_rki_cases
@@ -333,7 +333,7 @@ class covid_cases:
             Returns an object of the class Filter.
         """
         if(type(date)==datetime.date):
-            date = str(datetime.combine(date, datetime.time()))   
+            date = str(datetime.datetime.combine(date, datetime.time()))   
         elif(type(date)==datetime.datetime): 
             date = str(date)
         covid_cases = self._loaded_rki_cases
@@ -375,7 +375,7 @@ class covid_cases:
             Returns an object of the class Filter.
         """
         if(type(date)==datetime.date):
-            date = str(datetime.combine(date, datetime.time()))   
+            date = str(datetime.datetime.combine(date, datetime.time()))   
         elif(type(date)==datetime.datetime): 
             date = str(date)
         covid_cases = self._loaded_rki_cases
@@ -417,7 +417,7 @@ class covid_cases:
             Returns an object of the class Filter.
         """
         if(type(date)==datetime.date):
-            date = str(datetime.combine(date, datetime.time()))   
+            date = str(datetime.datetime.combine(date, datetime.time()))   
         elif(type(date)==datetime.datetime): 
             date = str(date)
         covid_cases = self._loaded_rki_cases
@@ -545,7 +545,7 @@ class covid_cases:
             Returns an object of the class Filter.
         """
         if(type(date)==datetime.date):
-            date = str(datetime.combine(date, datetime.time()))   
+            date = str(datetime.datetime.combine(date, datetime.time()))   
         elif(type(date)==datetime.datetime): 
             date = str(date)
         covid_cases = self._loaded_rki_cases
@@ -589,7 +589,7 @@ class covid_cases:
             Returns an object of the class Filter.
         """
         if(type(date)==datetime.date):
-            date = str(datetime.combine(date, datetime.time()))   
+            date = str(datetime.datetime.combine(date, datetime.time()))   
         elif(type(date)==datetime.datetime): 
             date = str(date)
         covid_cases = self._loaded_rki_cases
@@ -633,7 +633,7 @@ class covid_cases:
             Returns an object of the class Filter.
         """
         if(type(date)==datetime.date):
-            date = str(datetime.combine(date, datetime.time()))   
+            date = str(datetime.datetime.combine(date, datetime.time()))   
         elif(type(date)==datetime.datetime): 
             date = str(date)
         covid_cases = self._loaded_rki_cases
