@@ -34,22 +34,22 @@ A description of the parameters can be found below.
 
 | method | description | returns
 | --- | --- | --- |
-| `kumFälle(date, region_id, date_type)` | cumulated covid19 cases | Filter object |
-| `kumTodesfälle(date, region_id, date_type)` | cumulated covid19 deaths | Filter object |
-| `neueFälle(date, region_id, date_type)` | new covid19 cases | Filter object |
-| `neueTodesfälle(date, region_id, date_type)` | new covid19 deaths | Filter object |
-| `neueFälleZeitraum(date, region_id, date_type, timespan)` | new covid19 cases in period | Filter object |
-| `neueTodesfälleZeitraum(date, region_id, date_type, timespan)` | new covid19 deaths in period | Filter object |
-| `aktiveFälle(date, region_id, date_type, days_infectious)` | active covid19 cases | Filter object |
-| `SiebenTageFallzahl(date, region_id, date_type)` | new covid19 cases in 7-days | Filter object |
-| `SiebenTageInzidenz(date, region_id, date_type)` | new covid19 cases per 100k people in 7-days | Filter object |
+| `cumCases(date, region_id, date_type)` | cumulated covid19 cases | Filter object |
+| `cumDeaths(date, region_id, date_type)` | cumulated covid19 deaths | Filter object |
+| `newCases(date, region_id, date_type)` | new covid19 cases | Filter object |
+| `newDeaths(date, region_id, date_type)` | new covid19 deaths | Filter object |
+| `newCasesTimespan(date, region_id, date_type, timespan)` | new covid19 cases in period | Filter object |
+| `newDeathsTimespan(date, region_id, date_type, timespan)` | new covid19 deaths in period | Filter object |
+| `activeCases(date, region_id, date_type, days_infectious)` | active covid19 cases | Filter object |
+| `sevenDayCaserate(date, region_id, date_type)` | new covid19 cases in 7-days | Filter object |
+| `sevenDayIncidence(date, region_id, date_type)` | new covid19 cases per 100k people in 7-days | Filter object |
 
 
 #### Parameters:
 
 | parameter | type | description | example |
 | --- | :---: | --- | --- |
-| `date` | str | The desired date in the iso format | '2020-06-01 00:00:00' |
+| `date` | str in  iso format, datetime.date obj, datetime.datetime obj | The desired date. | '2020-06-01 00:00:00' |
 | `region_id` | str | [A list of region-ids can be found here.](https://github.com/Hoffmann77/rki-covid19csv-parser/blob/main/REGION_ID.md) | '0' |
 | `date_type` | str | The date type to use. Meldedatum or Refdatum | 'Meldedatum' |
 | `timespan` | int | Number of last days to be included in calculation. | 3 |
@@ -60,7 +60,8 @@ Each of the methods mentioned above returns an objct of the class Filter. You ca
 
 | method | description | returns
 | --- | --- | --- |
-| `by_cases()` | absolute number of cases | dict |
+| `values()` | raw data | ndarray |
+| `by_cases(raw, decimals)` | absolute number of cases | dict |
 | `by_age(frequency, decimals)` | cases sorted into agegroups | dict |
 | `by_gender(frequency, decimals)` | cases sorted by gender | dict |
 | `by_ageandgener(frequency, decimals)` | cases sorted by age and gender | dict |
@@ -69,12 +70,13 @@ Each of the methods mentioned above returns an objct of the class Filter. You ca
 | --- | :---: | --- | --- |
 | `frequency` | str | weather you want the absolute or relative number of cases | 'absolute' |
 | `decimals` | int | number of decimals | 3 |
+| `raw` | bool | True to get raw values | True |
 
 
 #### Examples:
 
 ```
-cases = covid_cases.kumFälle(date='2021-04-29 00:00:00', region_id='01001', date_type='Meldedatum').by_gender(frequency='absolute')
+cases = covid_cases.cumCases(date='2021-04-29 00:00:00', region_id='01001', date_type='Meldedatum').by_gender(frequency='absolute')
 print(cases)
 >>> {'M': 1200, 'W': 1400, 'unbekannt': 130}
 ```
