@@ -662,6 +662,7 @@ class covid_cases:
             
         return Filter(result, '7-TageInzidenz_{}'.format(date_type))
     
+    
     def deathRate(self, date, region_id='0', days_infectious=14):
         """Return the death rate for the given date.
         
@@ -683,7 +684,30 @@ class covid_cases:
         new_deaths = self.newDeaths(date=date, region_id=region_id, date_type='Meldedatum')
         result = np.divide(new_deaths, active_cases, where=active_cases != 0)
         return Filter(result, 'Todesrate')
+    
+    
+    def deathRate(self, date, region_id='0', days_infectious=14):
+        """Return the death rate for the given date.
         
+        Parameters
+        ----------
+        date : str in iso format, datetime.date obj, datetime.datetime obj
+            The desired date.
+        region_id : str, optional
+            ID of the desired Region. The default is '0'.
+        days_infectious : int
+            The number of days an case is considered active after the transmission of the infection.
+            
+        Returns
+        -------
+        Object of class Filter : Filter object
+            Returns an object of the class Filter.
+        """
+        active_cases = self.activeCases(date=date, region_id=region_id, date_type='Refdatum', days_infectious=days_infectious).values()
+        new_deaths = self.newDeaths(date=date, region_id=region_id, date_type='Meldedatum').values()
+        result = np.divide(new_deaths, active_cases, where=active_cases != 0)
+        return Filter(result, 'Todesrate')
+    
     
 #internal function to create dates dict   
 def _load_dates():
