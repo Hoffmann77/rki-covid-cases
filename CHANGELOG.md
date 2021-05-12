@@ -1,6 +1,7 @@
 ## [1.2.0] - 2021-05-12
 ### Changed:
 - date parameter can now be datetime.date or datetime.datetime obj
+- changed method names to english.
 
 ### Added:
 - new Filter method (value()) to get raw data.
