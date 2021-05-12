@@ -54,7 +54,7 @@ class Filter:
         return str(self.cases)
         
     
-    def by_gender(self,frequency='absolute',decimals=3):
+    def by_gender(self,frequency:str='absolute',decimals:int=3):
         """Converts the Cases to a representation by gender.
         
         Parameters
@@ -83,7 +83,7 @@ class Filter:
             return return_data 
             
         
-    def by_age(self,frequency='absolute',decimals=3):
+    def by_age(self,frequency:str='absolute',decimals:int=3):
         """Converts the Cases to a representation by age.
         
         Parameters
@@ -112,7 +112,7 @@ class Filter:
             return return_data
             
      
-    def by_ageandgender(self,frequency='absolute',decimals=3):
+    def by_ageandgender(self,frequency:str='absolute',decimals:int=3):
         """Converts the Cases to a representation by age and gender.
         
         Parameters
@@ -138,13 +138,15 @@ class Filter:
         return return_data
     
     
-    def by_cases(self):
+    def by_cases(self, raw:bool=False, decimals:int=1):
         """Converts the Cases to an absolute number.
         
         Parameters
         ----------
         frequency : str, optional
-            relative or absolute frewuency for the output.
+            relative or absolute frequency for the output.
+        raw : bool, optional
+            if true the raw values are returned.
         decimals : int, optional
             number of decimal places.
 
@@ -152,10 +154,15 @@ class Filter:
         -------
         return_data : dict
             a dictionary with the absolute number of cases.
+        return_data : float
+            a float with the absolute number of cases.
         """
-        return_data = {}
-        return_data[self.case_description] = round(self.cases.sum(axis=0).sum(axis=0),1)
-        return return_data
+        if(raw==True):
+            return round(self.cases.sum(axis=0).sum(axis=0),decimals)
+        else:    
+            return_data = {}
+            return_data[self.case_description] = round(self.cases.sum(axis=0).sum(axis=0),decimals)
+            return return_data
     
     
 
@@ -256,15 +263,15 @@ class covid_cases:
         self._loaded_rki_cases = np.load(path)
     
         
-    def kumFälle(self, date='2021-01-01 00:00:00', region_id='0', date_type='Meldedatum'):
+    def kumFälle(self, date, region_id='0', date_type='Meldedatum'):
         """Return the cumulated Covid19 cases for the given day and region.
         
         Parameters
         ----------
-        date : str, optional
-            The date. The default is '2021-01-01 00:00:00'.
+        date : iso formatted str, datetime.date obj, datetime.datetime obj
+            The desired date.
         region_id : str, optional
-            Region. The default is '0'.
+            ID of the desired Region. The default is '0'.
         date_type : str, optional
             The type of date. The default is 'Meldedatum'.
     
@@ -273,6 +280,11 @@ class covid_cases:
         Object of class Case : Case object
             Returns an object of the class Case.
         """
+        if(type(date)==datetime.date):
+            date = str(datetime.combine(date, datetime.time()))   
+        elif(type(date)==datetime.datetime): 
+            date = str(date)
+            
         covid_cases = self._loaded_rki_cases
         dates = _load_dates()
         datetype_index = _DATE_TYPES[date_type]
@@ -294,7 +306,7 @@ class covid_cases:
         return Filter(result, 'kumFälle_{}'.format(date_type))
     
     
-    def kumTodesfälle(self, date='2021-01-01 00:00:00', region_id='0', date_type='Meldedatum'):
+    def kumTodesfälle(self, date, region_id='0', date_type='Meldedatum'):
         """Return the cumulated Covid19 deaths for the given day and region.
         
         Parameters
@@ -332,7 +344,7 @@ class covid_cases:
         return Filter(result, 'kumTodesfälle_{}'.format(date_type))
 
 
-    def neueFälle(self, date='2021-01-01 00:00:00', region_id='0', date_type='Meldedatum'):
+    def neueFälle(self, date, region_id='0', date_type='Meldedatum'):
         """Return the new Covid19 cases for the given day and region.
         
         Parameters
@@ -370,7 +382,7 @@ class covid_cases:
         return Filter(result, 'neueFälle_{}'.format(date_type)) 
 
     
-    def neueTodesfälle(self, date='2021-01-01 00:00:00', region_id='0', date_type='Meldedatum'):
+    def neueTodesfälle(self, date, region_id='0', date_type='Meldedatum'):
         """Return the new Covid19 desths for the given day and region.
         
         Parameters
@@ -408,7 +420,7 @@ class covid_cases:
         return Filter(result, 'neueTodesfälle_{}'.format(date_type))
 
 
-    def neueFälleZeitraum(self, date='2021-01-01 00:00:00', region_id='0', date_type='Meldedatum', timespan=1):
+    def neueFälleZeitraum(self, date, region_id='0', date_type='Meldedatum', timespan=1):
         """Return the new Covid19 cases for the given day and region.
         
         Parameters
@@ -450,7 +462,7 @@ class covid_cases:
         return Filter(result, 'neueFälle_{}Tage_{}'.format(timespan,date_type))
 
 
-    def neueTodesfälleZeitraum(self, date='2021-01-01 00:00:00', region_id='0', date_type='Meldedatum', timespan=1):
+    def neueTodesfälleZeitraum(self, date, region_id='0', date_type='Meldedatum', timespan=1):
         """Return the new Covid19 cases for the given day and region.
         
         Parameters
@@ -492,7 +504,7 @@ class covid_cases:
         return Filter(result, 'neueTodesfälle_{}Tage_{}'.format(timespan,date_type))        
 
 
-    def aktiveFälle(self, date='2021-01-01 00:00:00', region_id='0', date_type='Meldedatum', days_infectious=14):
+    def aktiveFälle(self, date, region_id='0', date_type='Meldedatum', days_infectious=14):
         """Return the active Covid19 cases for the given day and region.
         
         Parameters
@@ -534,7 +546,7 @@ class covid_cases:
         return Filter(result, 'aktiveFälle_{}'.format(date_type))
       
         
-    def SiebenTageFallzahl(self, date='2021-01-01 00:00:00', region_id='0', date_type='Meldedatum'):
+    def SiebenTageFallzahl(self, date, region_id='0', date_type='Meldedatum'):
         """Return the new Covid19 cases for the last 7 days from the given date.
         
         Parameters
@@ -574,7 +586,7 @@ class covid_cases:
         return Filter(result, '7-TageFallzahl_{}'.format(date_type)) 
     
     
-    def SiebenTageInzidenz(self, date='2021-01-01 00:00:00', region_id='0', date_type='Meldedatum'):
+    def SiebenTageInzidenz(self, date, region_id='0', date_type='Meldedatum'):
         """Return the Covid19 cases per 100 000 residents for the last 7 days from the given date.
         
         Parameters
