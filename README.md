@@ -43,13 +43,14 @@ A description of the parameters can be found below.
 | `activeCases(date, region_id, date_type, days_infectious)` | active covid19 cases | Filter object |
 | `sevenDayCaserate(date, region_id, date_type)` | new covid19 cases in 7-days | Filter object |
 | `sevenDayIncidence(date, region_id, date_type)` | new covid19 cases per 100k people in 7-days | Filter object |
+| `deathRate(date, region_id, days_infectious)` | death rate (activeCases/newDeaths) | Filter object |
 
 
 #### Parameters:
 
 | parameter | type | description | example |
 | --- | :---: | --- | --- |
-| `date` | str in  iso format, datetime.date obj, datetime.datetime obj | The desired date. | '2020-06-01 00:00:00' |
+| `date` | str in  iso-format, datetime.date obj, datetime.datetime obj | The desired date. | '2020-06-01 00:00:00' |
 | `region_id` | str | [A list of region-ids can be found here.](https://github.com/Hoffmann77/rki-covid19csv-parser/blob/main/REGION_ID.md) | '0' |
 | `date_type` | str | The date type to use. Meldedatum or Refdatum | 'Meldedatum' |
 | `timespan` | int | Number of last days to be included in calculation. | 3 |
