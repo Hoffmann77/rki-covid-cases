@@ -1,4 +1,4 @@
-## [1.2.0] - 2021-05-12
+## [1.2.0] - 2021-05-16
 ### Changed:
 - date parameter can now be datetime.date or datetime.datetime obj
 - method names are in english now.
